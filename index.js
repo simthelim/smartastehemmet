@@ -8,6 +8,9 @@ const restService = express();
 
 const host = 'api.thingspeak.com';
 
+var unit;
+var state;
+
 restService.use(
   bodyParser.urlencoded({
     extended: true
@@ -18,8 +21,8 @@ restService.use(bodyParser.json());
 
 restService.post("/webhook", function(req, res) {
 
- let unit = req.body.queryResult.parameters['unit']; // take out the unit, lamp e.g.
- let state = req.body.queryResult.parameters['state']; // take out the the state, on or off
+ 	unit = req.body.queryResult.parameters['unit']; // take out the unit, lamp e.g.
+ 	state = req.body.queryResult.parameters['state']; // take out the the state, on or off
  
  if (unit == 'light' && state == 'on'){
 	 callThingApiON().then((output) => {
