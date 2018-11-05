@@ -1,0 +1,14 @@
+{
+  "name": "dialog_flow_tester",
+  "version": "1.0.0",
+  "description": "dialog flow tester",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Christoffer",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4"
+  }
+}
