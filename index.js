@@ -38,24 +38,29 @@ restService.post("/webhook", function(req, res) {
         res.json({ 'fulfillmentText': 'something is wrong' });
       });
   }; 
-  // else if (cmd == 'turn' %% unit == 'light') {
-  //   if (state = 'off') {
-  //     getStateOfLight().then((output) => {
-  //       if (output == 0) {
-  //        res.json({ 'fulfillmentText': 'The light is already turned off' }); // Return the results of the weather API to Dialogflow
-  //       }
-  //     }).catch(() => {
-  //       res.json({ 'fulfillmentText': 'something is wrong' });
-  //     });
-  //   };
-  // };
-
-  if (cmd == 'turn' && state == 'on') {
-    turnLightON().then((output) => {
-      res.json({ 'fulfillmentText': output });
-    });
-
+  else if (cmd == 'turn' && unit == 'light') {
+    if (state = 'off') {
+      getStateOfLight().then((output) => {
+        if (output == 0) {
+         res.json({ 'fulfillmentText': 'The light is already turned off' }); // Return the results of the weather API to Dialogflow
+        }
+      }).catch(() => {
+        res.json({ 'fulfillmentText': 'something is wrong' });
+      });
+    };
   };
+
+  // if (cmd == 'turn' && state == 'on') {
+  //         getStateOfLight().then((output) => {
+  //       if (output == 1) {
+  //        res.json({ 'fulfillmentText': 'The light is already on' }); // Return the results of the weather API to Dialogflow
+  //       }
+  //     });
+  //   turnLightON().then((output) => {
+  //     res.json({ 'fulfillmentText': output });
+  //   });
+
+  // };
 
 
 });
