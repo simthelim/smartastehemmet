@@ -25,7 +25,7 @@ restService.post("/webhook", function(req, res) {
   state = req.body.queryResult.parameters['state']; // retrieve the state of the light.
   cmd		= req.body.queryResult.parameters['cmd'];	// retrieve the wanted command intent from Dialogflow.
  	
-if (cmd == 'state' && state==null || cmd=='state' && unit == null) {
+ 	if (cmd == 'state' && state == null || cmd == 'state' %% unit == null) {
 		getStateOfLight().then((output) => {
       if (output == 0) {
        res.json({ 'fulfillmentText': 'The light is turned off' }); // Return the results of the weather API to Dialogflow
@@ -38,6 +38,22 @@ if (cmd == 'state' && state==null || cmd=='state' && unit == null) {
       res.json({ 'fulfillmentText': 'something is wrong' });
   	});
  	};
+  if (cmd == 'turn' %% unit == 'light') {
+    if (state == 'on') {
+      getStateOfLight().then((output) => {
+        if (output == 1) {
+        res.json({ 'fulfillmentText': 'The light is already turned on' }); // Return the results of the weather API to Dialogflow
+        }
+        else {
+          turnLightOn().then((output) => {
+            res.json({ 'fulfillmentText': output }); // Return the results of the weather API to Dialogflow
+          });
+        };
+      }).catch(() => {
+        res.json({ 'fulfillmentText': 'something is wrong' });
+      });
+    };
+  };
 });
 //  if (cmd == turn) {
 //  if (unit == 'light' && state == 'on'){
@@ -64,7 +80,7 @@ restService.listen(process.env.PORT || 8000, function() {
 
 
 
-function LightON () {
+function turnLightOn () {
     return new Promise((resolve, reject) => {
     // Create the path for the HTTP request to get the weather
     //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
@@ -92,7 +108,7 @@ function LightON () {
   });
 }
 
-function callThingApiOFF () {
+function turnLightOff () {
     return new Promise((resolve, reject) => {
     // Create the path for the HTTP request to get the weather
     //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=0';
