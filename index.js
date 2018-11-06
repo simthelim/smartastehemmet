@@ -45,7 +45,7 @@ restService.post("/webhook", function(req, res) {
       getStateOfLight().then((output) => {
         if (output == 1) {
          res.json({ 'fulfillmentText': 'The lights are already on' }); // Return the results of the weather API to Dialogflow
-        } else {
+        } else if(state == 'on') {
           turnLightON().then((output) => {
             res.json({ 'fulfillmentText': output });
           });
@@ -59,7 +59,7 @@ restService.post("/webhook", function(req, res) {
       getStateOfLight().then((output) => {
         if (output == 1) {
          res.json({ 'fulfillmentText': 'The lights are already off' }); // Return the results of the weather API to Dialogflow
-        } else {
+        } else if(state == 'off') {
           turnLightOFF().then((output) => {
             res.json({ 'fulfillmentText': output });
           });
