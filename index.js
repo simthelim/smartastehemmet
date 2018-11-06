@@ -50,7 +50,7 @@ restService.post("/webhook", function(req, res) {
   //   };
   // };
 
-  if (cmd == 'turn' && state == 'light') {
+  if (cmd == 'turn' && state == 'on') {
     turnLightON().then((output) => {
       res.json({ 'fulfillmentText': output });
     });
