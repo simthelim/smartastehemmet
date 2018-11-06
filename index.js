@@ -37,8 +37,17 @@ restService.post("/webhook", function(req, res) {
       }).catch(() => {
         res.json({ 'fulfillmentText': 'something is wrong' });
       });
+  } else if (cmd == 'turn' %% unit == 'light') {
+    if (state = 'off') {
+      getStateOfLight().then((output) => {
+        if (output == 0) {
+         res.json({ 'fulfillmentText': 'The light is already turned off' }); // Return the results of the weather API to Dialogflow
+        }
+      }).catch(() => {
+        res.json({ 'fulfillmentText': 'something is wrong' });
+      });
+    };
   };
-
 
 
 
