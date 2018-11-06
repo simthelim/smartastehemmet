@@ -134,7 +134,7 @@ function getStateOfLight () {
         let response = JSON.parse(body);
         let temp = response.feeds[0].field1;
         // Create response
-        let output = temp;
+        var output = temp;
 
         // Resolve the promise with the output text
         console.log(output);
