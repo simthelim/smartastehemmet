@@ -42,21 +42,20 @@ restService.post("/webhook", function(req, res) {
 
   if (cmd == 'turn' && unit == 'light') {
     if (state = 'on') {
-      getStateOfLight().then((output) => {
+      getStateOfLight()
         if (output == 1) {
          res.json({ 'fulfillmentText': 'The lights are already on' }); // Return the results of the weather API to Dialogflow
-        } else{
+        } else {
           turnLightON().then((output) => {
             res.json({ 'fulfillmentText': output });
           });
         };
-      });
     };
   };
 
     if (cmd == 'turn' && unit == 'light') {
     if (state = 'off') {
-      getStateOfLight().then((output) => {
+      getStateOfLight()
         if (output == 0) {
          res.json({ 'fulfillmentText': 'The lights are already off' }); // Return the results of the weather API to Dialogflow
         } else {
@@ -64,7 +63,6 @@ restService.post("/webhook", function(req, res) {
             res.json({ 'fulfillmentText': output });
           });
         };
-      });
     };
   };
 
