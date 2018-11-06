@@ -26,8 +26,8 @@ restService.post("/webhook", function(req, res) {
   cmd   = req.body.queryResult.parameters['cmd']; // retrieve the wanted command intent from Dialogflow.
   
   if (cmd == 'state') {
-      getStateOfLight().then((status) => {
-        if (status == 0) {
+      getStateOfLight().then((output) => {
+        if (output == 0) {
          res.json({ 'fulfillmentText': 'The light is turned off' }); // Return the results of the weather API to Dialogflow
         }
         else {
@@ -42,27 +42,29 @@ restService.post("/webhook", function(req, res) {
 
   if (cmd == 'turn' && unit == 'light') {
     if (state = 'on') {
-      getStateOfLight()
-        if (status == 1) {
+      getStateOfLight().then((output) => {
+        if (output == 1) {
          res.json({ 'fulfillmentText': 'The lights are already on' }); // Return the results of the weather API to Dialogflow
         } else {
           turnLightON().then((output) => {
             res.json({ 'fulfillmentText': output });
           });
         };
+      });
     };
   };
 
     if (cmd == 'turn' && unit == 'light') {
     if (state = 'off') {
-      getStateOfLight()
-        if (status == 0) {
+      getStateOfLight().then((output) => {
+        if (output == 0) {
          res.json({ 'fulfillmentText': 'The lights are already off' }); // Return the results of the weather API to Dialogflow
         } else {
           turnLightOFF().then((output) => {
             res.json({ 'fulfillmentText': output });
           });
         };
+      });
     };
   };
 
@@ -175,11 +177,11 @@ function getStateOfLight () {
         let response = JSON.parse(body);
         let temp = response.feeds[0].field1;
         // Create response
-        var status = temp;
+        let output = temp;
 
         // Resolve the promise with the output text
-        console.log(status);
-        resolve(status);
+        console.log(output);
+        resolve(output);
       });
       res.on('error', (error) => {
         console.log('Error calling API')
