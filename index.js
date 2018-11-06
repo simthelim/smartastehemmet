@@ -38,14 +38,32 @@ restService.post("/webhook", function(req, res) {
         res.json({ 'fulfillmentText': 'something is wrong' });
       });
   }; 
+
+
   if (cmd == 'turn' && unit == 'light') {
     if (state = 'on') {
       getStateOfLight().then((output) => {
         if (output == 1) {
          res.json({ 'fulfillmentText': 'The lights are already on' }); // Return the results of the weather API to Dialogflow
-        }
-      }).catch(() => {
-        res.json({ 'fulfillmentText': 'something is wrong' });
+        } else {
+          turnLightON().then((output) => {
+            res.json({ 'fulfillmentText': output });
+          });
+        };
+      });
+    };
+  };
+
+    if (cmd == 'turn' && unit == 'light') {
+    if (state = 'off') {
+      getStateOfLight().then((output) => {
+        if (output == 1) {
+         res.json({ 'fulfillmentText': 'The lights are already off' }); // Return the results of the weather API to Dialogflow
+        } else {
+          turnLightOFF().then((output) => {
+            res.json({ 'fulfillmentText': output });
+          });
+        };
       });
     };
   };
@@ -117,7 +135,7 @@ function turnLightON () {
   });
 }
 
-function callThingApiOFF () {
+function turnLightOFF () {
     return new Promise((resolve, reject) => {
     // Create the path for the HTTP request to get the weather
     //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=0';
