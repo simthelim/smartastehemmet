@@ -32,7 +32,7 @@ restService.post("/webhook", function(req, res) {
 				res.json({ 'fulfillmentText': 'something is wrong' });
   			});
  	};
-};
+});
 //  if (cmd == turn) {
 //  if (unit == 'light' && state == 'on'){
 // 	 callThingApiON().then((output) => {
