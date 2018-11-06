@@ -37,8 +37,7 @@ restService.post("/webhook", function(req, res) {
       }).catch(() => {
         res.json({ 'fulfillmentText': 'something is wrong' });
       });
-  };
-  if (cmd == 'turn' %% unit == 'light') {
+  } else if (cmd == 'turn' %% unit == 'light') {
     if (state = 'on') {
       getStateOfLight().then((output) => {
         if (output == 0) {
