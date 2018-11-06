@@ -27,10 +27,16 @@ restService.post("/webhook", function(req, res) {
  	
  	if (cmd == 'state') {
 		getStateOfLight().then((output) => {
-    		res.json({ 'fulfillmentText': output }); // Return the results of the weather API to Dialogflow
-  			}).catch(() => {
-				res.json({ 'fulfillmentText': 'something is wrong' });
-  			});
+      if (output == 0) {
+       res.json({ 'fulfillmentText': 'The light is turned off' }); // Return the results of the weather API to Dialogflow
+      };
+      else {
+        res.json({ 'fulfillmentText': 'The light is turned on' }); // Return the results of the weather API to Dialogflow
+      };
+    		
+  	}).catch(() => {
+      res.json({ 'fulfillmentText': 'something is wrong' });
+  	});
  	};
 });
 //  if (cmd == turn) {
@@ -128,7 +134,7 @@ function getStateOfLight () {
         let response = JSON.parse(body);
         let temp = response.feeds[0].field1;
         // Create response
-        let output = 'The temperature is ' + temp + ' degree';
+        let output = temp;
 
         // Resolve the promise with the output text
         console.log(output);
