@@ -50,6 +50,12 @@ restService.post("/webhook", function(req, res) {
   //   };
   // };
 
+  if (cmd == 'turn' && state == 'light') {
+    turnLightON().then((output) => {
+      res.json({ 'fulfillmentText': output });
+    });
+
+  };
 
 
 });
@@ -78,7 +84,7 @@ restService.listen(process.env.PORT || 8000, function() {
 
 
 
-function LightON () {
+function turnLightON () {
     return new Promise((resolve, reject) => {
     // Create the path for the HTTP request to get the weather
     //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
