@@ -24,7 +24,12 @@ restService.post("/webhook", function(req, res) {
   unit  = req.body.queryResult.parameters['unit'];  // take out the unit, ligh e.g.
   state = req.body.queryResult.parameters['state']; // retrieve the state of the light.
   cmd   = req.body.queryResult.parameters['cmd'];   // retrieve the wanted command intent from Dialogflow.
-  var key = '8GC28PFNII0B3951';
+  area   = req.body.queryResult.parameters['area'];
+
+  //var key = '8GC28PFNII0B3951';
+  if (area == 'living room') {
+    key = '8GC28PFNII0B3951';
+  };
 
   //-----------------------------Light Control-----------------------------//
 
