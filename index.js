@@ -27,10 +27,10 @@ restService.post("/webhook", function(req, res) {
   cmd   = req.body.queryResult.parameters['cmd'];   // retrieve the wanted command intent from Dialogflow.
   area   = req.body.queryResult.parameters['area'];
 
-//  var key = '8GC28PFNII0B3951';
-  if (area == 'living room') {
-    key = '8GC28PFNII0B3951';
-  };
+  var key = '8GC28PFNII0B3951';
+  // if (area == 'living room') {
+  //   key = '8GC28PFNII0B3951';
+  // };
 
   //-----------------------------Light Control-----------------------------//
 
