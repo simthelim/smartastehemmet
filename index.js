@@ -26,7 +26,7 @@ restService.post("/webhook", function(req, res) {
   cmd   = req.body.queryResult.parameters['cmd'];   // retrieve the wanted command intent from Dialogflow.
   area = req.body.queryResult.parameters['area'];
   
-  if (area == living room) {
+  if (area == 'living room') {
     var key = '8GC28PFNII0B3951';
   };
   //-----------------------------Light Control-----------------------------//
