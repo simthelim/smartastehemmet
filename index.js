@@ -11,6 +11,7 @@ const host = 'api.thingspeak.com';
 var unit;
 var state;
 var cmd;
+var area;
 restService.use(
   bodyParser.urlencoded({
     extended: true
@@ -25,8 +26,11 @@ restService.post("/webhook", function(req, res) {
   state = req.body.queryResult.parameters['state']; // retrieve the state of the light.
   cmd   = req.body.queryResult.parameters['cmd'];   // retrieve the wanted command intent from Dialogflow.
   area   = req.body.queryResult.parameters['area'];
-  
-  var key = '8GC28PFNII0B3951';
+
+//  var key = '8GC28PFNII0B3951';
+  if (area == 'living room') {
+    key = '8GC28PFNII0B3951';
+  };
 
   //-----------------------------Light Control-----------------------------//
 
