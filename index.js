@@ -55,7 +55,7 @@ restService.post("/webhook", function(req, res) {
   //Set volume of speaker
 
   if (cmd == 'set' && unit == 'speaker') {
-    volume = percentage.replace( /^\D+/g, ''); // replace all leading non-digits with nothing
+    volume = percentage.match(/\d+/)[0] // replace all leading non-digits with nothing
     vol = volume.toString();
     setSpeakerVolume().then((output) => {
       res.json({ 'fulfillmentText': output });
