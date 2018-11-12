@@ -97,7 +97,7 @@ function turnLightON () {
     //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
     // Make the HTTP request
   
-    https.get('https://api.thingspeak.com/update?api_key='+key+'&field1=1', (res) => {
+    https.get('https://api.thingspeak.com/update?api_key='+controlkey+'&field1=1', (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
@@ -125,7 +125,7 @@ function turnLightOFF () {
     //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=0';
     // Make the HTTP request
   
-    https.get('https://api.thingspeak.com/update?api_key='+key+'&field1=0', (res) => {
+    https.get('https://api.thingspeak.com/update?api_key='+controlkey+'&field1=0', (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
@@ -153,7 +153,7 @@ function getStateOfLight () {
     //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
     // Make the HTTP request
   
-    https.get('https://api.thingspeak.com/channels/619204/feeds.json?results=1', (res) => {
+    https.get('https://api.thingspeak.com/channels/'+statekey+'/feeds.json?results=1', (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
