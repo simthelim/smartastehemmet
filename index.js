@@ -110,7 +110,7 @@ function turnLightON () {
         //let response = JSON.parse(body);
         //let last = response['field1'];
         // Create response
-        let output = 'The light is now turned on';
+        let output = 'The '+area+' light is now turned on';
 
         // Resolve the promise with the output text
         console.log(output);
@@ -138,7 +138,7 @@ function turnLightOFF () {
         //let response = JSON.parse(body);
         //let last = response['field1'];
         // Create response
-        let output = 'The light is now turned off';
+        let output = 'The '+area+' light is now turned off';
 
         // Resolve the promise with the output text
         console.log(output);
