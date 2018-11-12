@@ -34,16 +34,21 @@ restService.post("/webhook", function(req, res) {
     statekey = '619204';
   };
 
+  if (area == 'kitchen') {
+    controlkey = 'NKLUZK54FJP8Q5QP';
+    statekey = '622701';
+  };
+
   //-----------------------------Light Control-----------------------------//
 
   //Status of lights
   if (cmd == 'state' && unit == 'light') {
       getStateOfLight().then((output) => {
         if (output == 0) {
-         res.json({ 'fulfillmentText': 'The light is turned off' }); // Return the state of light
+         res.json({ 'fulfillmentText': 'The '+area+' light is turned off' }); // Return the state of light
         }
         else {
-          res.json({ 'fulfillmentText': 'The light is turned on' }); // Return the state of the light
+          res.json({ 'fulfillmentText': 'The '+area+' light is turned on' }); // Return the state of the light
         };
           
       }).catch(() => {
@@ -57,7 +62,7 @@ restService.post("/webhook", function(req, res) {
     if (state == 'on') {
       getStateOfLight().then((output) => {                             //Checks the output of getStateOfLight to see if it is already on
         if (output == 1) {
-         res.json({ 'fulfillmentText': 'The lights are already on' }); // If the lights are already on
+         res.json({ 'fulfillmentText': 'The '+area+' lights are already on' }); // If the lights are already on
         } else {
           turnLightON().then((output) => {                              //Else it turns on the lights.
             res.json({ 'fulfillmentText': output });
@@ -68,7 +73,7 @@ restService.post("/webhook", function(req, res) {
     if (state == 'off') {
       getStateOfLight().then((output) => {                              //Checks the output of getStateOfLight to see if it is already off
         if (output == 0) {
-         res.json({ 'fulfillmentText': 'The lights are already off' }); // If the lights are already off
+         res.json({ 'fulfillmentText': 'The '+area+' lights are already off' }); // If the lights are already off
         } else {
           turnLightOFF().then((output) => {                             //Else it turns off the lights
             res.json({ 'fulfillmentText': output });
