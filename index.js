@@ -29,7 +29,7 @@ restService.post("/webhook", function(req, res) {
   cmd   = req.body.queryResult.parameters['cmd'];   // retrieve the wanted command intent from Dialogflow.
   area  = req.body.queryResult.parameters['area'];  // retroeve the wamted area of the device
   
-  if (area == 'kitchen') {
+  if (area == 'living room') {
     controlkey = '8GC28PFNII0B3951';
     statekey = '619204';
   };
