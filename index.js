@@ -11,6 +11,7 @@ const host = 'api.thingspeak.com';
 var unit;
 var state;
 var cmd;
+var key;
 restService.use(
   bodyParser.urlencoded({
     extended: true
@@ -25,7 +26,7 @@ restService.post("/webhook", function(req, res) {
   state = req.body.queryResult.parameters['state']; // retrieve the state of the light.
   cmd   = req.body.queryResult.parameters['cmd'];   // retrieve the wanted command intent from Dialogflow.
   
-  var key = '8GC28PFNII0B3951';
+  key = '8GC28PFNII0B3951';
 
   //-----------------------------Light Control-----------------------------//
 
