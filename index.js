@@ -209,9 +209,9 @@ function turnLightOFF () {
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
         // After all the data has been received parse the JSON for desired data
-        let response = JSON.parse(body);
-        if (response == 0) {
-          let output = 'The light did not turn off, please wait a moment.';
+        //let response = JSON.parse(body);
+        if (body == 0) {
+          let output = 'The light did not turn off, please try again in a moment.';
         } else {
           let output = 'The '+area+' light is now turned off';
         };
