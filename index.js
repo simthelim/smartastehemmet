@@ -184,7 +184,12 @@ function turnLightON () {
         //let response = JSON.parse(body);
         //let last = response['field1'];
         // Create response
-        let output = 'The '+area+' light is now turned on';
+        let output;
+        if (body == '0') {
+          output = 'The light did not turn on, please try again in a moment.';
+        } else {
+          output = 'The '+area+' light is now turned on';
+        };
 
         // Resolve the promise with the output text
         console.log(output);
