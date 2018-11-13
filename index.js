@@ -46,17 +46,11 @@ restService.post("/webhook", function(req, res) {
     controlkey = 'NKLUZK54FJP8Q5QP';
     statekey = '622701';
   };
-  // if (unit == 'speaker') {
-  //   controlkey = '';
-  //   statekey = '';
-  // };
   
 //------------------------------Speaker volume control----------------------------//
   //Set volume of speaker
-
   if (cmd == 'set' && unit == 'speaker') {
-    volume = percentage.match(/\d+/)[0] // replace all leading non-digits with nothing
-    vol = volume.toString();
+    volume = percentage.replace( /^\D+/g, ''); // Take away the %-sign from 'percentage'
     setSpeakerVolume().then((output) => {
       res.json({ 'fulfillmentText': output });
     });
@@ -134,7 +128,7 @@ function setSpeakerVolume () {
         //let response = JSON.parse(body);
         //let last = response['field1'];
         // Create response
-        let output = 'The speaker is now on '+vol+' percent.';
+        let output = 'The speaker is now at '+vol+' percent.';
 
         // Resolve the promise with the output text
         console.log(output);
@@ -215,10 +209,15 @@ function turnLightOFF () {
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
         // After all the data has been received parse the JSON for desired data
-        //let response = JSON.parse(body);
+        let response = JSON.parse(body);
+        if (response == 0) {
+          let output = 'The light did not turn off, please wait a moment.';
+        } else {
+          let output = 'The '+area+' light is now turned off';
+        };
         //let last = response['field1'];
         // Create response
-        let output = 'The '+area+' light is now turned off';
+        //let output = 'The '+area+' light is now turned off';
 
         // Resolve the promise with the output text
         console.log(output);
