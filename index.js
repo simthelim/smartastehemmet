@@ -82,7 +82,6 @@ restService.post("/webhook", function(req, res) {
       }).catch(() => {
         res.json({ 'fulfillmentText': 'something is wrong' });
       });
-        }
   }; 
 
   //Switch on/off lights
