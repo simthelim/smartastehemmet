@@ -61,9 +61,7 @@ restService.post("/webhook", function(req, res) {
   };
 
 
-  isLightBroken().then((output) =>{
-  	broken = output;
-  });
+  broken = isLightBroken();
 
   //-----------------------------Light Control------------------------------------//
 
