@@ -67,7 +67,7 @@ restService.post("/webhook", function(req, res) {
 
   //Status of lights
   if (cmd == 'state' && unit == 'light') {
-  	  isLightBroken().then((output) =>{
+  	  isLightBroken().then((output) =>{			// Check the status of the broken channel
   			broken = output;
   		});
       getStateOfLight().then((output) => {
@@ -87,12 +87,20 @@ restService.post("/webhook", function(req, res) {
 
   //Switch on/off lights
   if (cmd == 'turn' && unit == 'light') {
-    
+
+  	isLightBroken().then((output) =>{			// Check the status of the broken channel
+  			broken = output;
+  	});
+
     if (state == 'on') {
       getStateOfLight().then((output) => {                             //Checks the output of getStateOfLight to see if it is already on
-        if (output == 1) {
+        if (output == 1 && broken == 1) {
          res.json({ 'fulfillmentText': 'The '+area+' lights are already on' }); // If the lights are already on
-        } else {
+        }
+        else if(output == 0 && broken == 1){
+        	res.json({ 'fulfillmentText': 'The '+area+' light seems to be broken' });
+        }
+        else {
           turnLightON().then((output) => {                              //Else it turns on the lights.
             res.json({ 'fulfillmentText': output });
           });
@@ -101,9 +109,13 @@ restService.post("/webhook", function(req, res) {
     };
     if (state == 'off') {
       getStateOfLight().then((output) => {                              //Checks the output of getStateOfLight to see if it is already off
-        if (output == 0) {
+        if (output == 0 && broken == 0) {
          res.json({ 'fulfillmentText': 'The '+area+' lights are already off' }); // If the lights are already off
-        } else {
+        }
+        else if(output == 1 && broken == 0){
+        	res.json({ 'fulfillmentText': 'The '+area+' light seems to be broken' });
+        }
+         else {
           turnLightOFF().then((output) => {                             //Else it turns off the lights
             res.json({ 'fulfillmentText': output });
           });
