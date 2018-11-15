@@ -276,7 +276,7 @@ function getStateOfLight () {
       res.on('end', () => {
         // After all the data has been received parse the JSON for desired data
         let response = JSON.parse(body);
-        let temp = response.feeds[0].field1;
+        let temp = response.feeds[1].field1;
         // Create response
         let output = temp;
 
@@ -304,7 +304,7 @@ function isLightBroken () {
       res.on('end', () => {
         // After all the data has been received parse the JSON for desired data
         let response = JSON.parse(body);
-        let temp = response.feeds[0].field1;
+        let temp = response.feeds[1].field1;
         // Create response
         //let output = temp;
 
