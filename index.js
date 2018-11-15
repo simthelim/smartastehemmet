@@ -270,13 +270,13 @@ function getStateOfLight () {
     //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
     // Make the HTTP request
   
-    https.get('https://api.thingspeak.com/channels/'+statekey+'/feeds.json?results=2', (res) => {
+    https.get('https://api.thingspeak.com/channels/'+statekey+'/feeds.json?results=1', (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
         // After all the data has been received parse the JSON for desired data
         let response = JSON.parse(body);
-        let temp = response.feeds[1].field1;
+        let temp = response.feeds[0].field1;
         // Create response
         let output = temp;
 
@@ -298,13 +298,13 @@ function isLightBroken () {
     //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
     // Make the HTTP request
   
-    https.get('https://api.thingspeak.com/channels/'+brokenkey+'/feeds.json?results=2', (res) => {
+    https.get('https://api.thingspeak.com/channels/'+brokenkey+'/feeds.json?results=1', (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
         // After all the data has been received parse the JSON for desired data
         let response = JSON.parse(body);
-        let temp = response.feeds[1].field1;
+        let temp = response.feeds[0].field1;
         // Create response
         //let output = temp;
 
