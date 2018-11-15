@@ -100,6 +100,9 @@ restService.post("/webhook", function(req, res) {
         else if(output == 0 && broken == 1){
         	res.json({ 'fulfillmentText': 'The '+area+' light seems to be broken' });
         }
+        else if(output == 1 && broken == 0){
+        	res.json({ 'fulfillmentText': 'The '+area+' light seems to be broken' });
+        }
         else {
           turnLightON().then((output) => {                              //Else it turns on the lights.
             res.json({ 'fulfillmentText': output });
@@ -111,6 +114,9 @@ restService.post("/webhook", function(req, res) {
       getStateOfLight().then((output) => {                              //Checks the output of getStateOfLight to see if it is already off
         if (output == 0 && broken == 0) {
          res.json({ 'fulfillmentText': 'The '+area+' lights are already off' }); // If the lights are already off
+        }
+        else if(output == 0 && broken == 1){
+        	res.json({ 'fulfillmentText': 'The '+area+' light seems to be broken' });
         }
         else if(output == 1 && broken == 0){
         	res.json({ 'fulfillmentText': 'The '+area+' light seems to be broken' });
