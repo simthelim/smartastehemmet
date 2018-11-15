@@ -61,12 +61,15 @@ restService.post("/webhook", function(req, res) {
   };
 
 
-  broken = isLightBroken();
+
 
   //-----------------------------Light Control------------------------------------//
 
   //Status of lights
   if (cmd == 'state' && unit == 'light') {
+  	  isLightBroken().then((output) =>{
+  			broken = output;
+  		});
       getStateOfLight().then((output) => {
         if (output == 0 && broken == 0) {
          res.json({ 'fulfillmentText': 'The '+area+' light is turned off' }); // Return the state of light
