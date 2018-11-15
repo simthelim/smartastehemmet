@@ -67,8 +67,8 @@ restService.post("/webhook", function(req, res) {
 
   //Status of lights
   if (cmd == 'state' && unit == 'light') {
-  	  isLightBroken().then((output) =>{			// Check the status of the broken channel
-  			broken = output;
+  	  isLightBroken().then((temp) =>{			// Check the status of the broken channel
+  			broken = temp;
   		});
       getStateOfLight().then((output) => {
         if (output == 1 && broken == 1) {
@@ -88,8 +88,8 @@ restService.post("/webhook", function(req, res) {
   //Switch on/off lights
   if (cmd == 'turn' && unit == 'light') {
 
-  	isLightBroken().then((output) =>{			// Check the status of the broken channel
-  			broken = output;
+  	isLightBroken().then((temp) =>{			// Check the status of the broken channel
+  			broken = temp;
   	});
 
     if (state == 'on') {
@@ -306,11 +306,11 @@ function isLightBroken () {
         let response = JSON.parse(body);
         let temp = response.feeds[0].field1;
         // Create response
-        let output = temp;
+        //let output = temp;
 
         // Resolve the promise with the output text
-        console.log(output);
-        resolve(output);
+        console.log(temp);
+        resolve(temp);
       });
       res.on('error', (error) => {
         console.log('Error calling API')
