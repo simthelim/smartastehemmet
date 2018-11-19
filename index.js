@@ -71,7 +71,7 @@ restService.post("/webhook", function(req, res) {
   			broken = output;
   		});
       getStateOfLight().then((output) => {
-        res.json({ 'fulfillmentText': 'The '+area+' light is turned off' }); // Return the state of the light
+        res.json({ 'fulfillmentText': 'broken= '+broken+' state= '+output }); // Return the state of the light
          });
       // getStateOfLight().then((output) => {
       //   if (output == 0 && broken == 0) {
