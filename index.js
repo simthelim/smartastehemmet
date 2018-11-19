@@ -64,13 +64,15 @@ restService.post("/webhook", function(req, res) {
 
 
   //-----------------------------Light Control------------------------------------//
-
+      isLightBroken().then((fromResolve) =>{     // Check the status of the broken channel
+        broken = fromResolve;
+      });
   //Status of lights
   if (cmd == 'state' && unit == 'light') {
-  	  broken = isLightBroken();
-      //isLightBroken().then((output) =>{			// Check the status of the broken channel
-  		//	broken = output;
-  		//});
+  	  
+    //   isLightBroken().then((output) =>{			// Check the status of the broken channel
+  		// 	broken = output;
+  		// });
       getStateOfLight().then((output) => {
         res.json({ 'fulfillmentText': 'broken= '+broken+' state= '+output }); // Return the state of the light
          });
@@ -297,11 +299,11 @@ function getStateOfLight () {
 }
 
 function isLightBroken () {
-    //return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
     // Create the path for the HTTP request to get the weather
     //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
     // Make the HTTP request
-  var output
+  
     https.get('https://api.thingspeak.com/channels/'+brokenkey+'/feeds.json?results=1', (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
@@ -310,19 +312,16 @@ function isLightBroken () {
         let response = JSON.parse(body);
         let temp = response.feeds[0].field1;
         // Create response
-        output = temp;
-        return output;
+        let output = temp;
 
         // Resolve the promise with the output text
-        //console.log(output);
-        //resolve(output);
+        console.log(output);
+        resolve(output);
       });
-      
-      // res.on('error', (error) => {
-      //   console.log('Error calling API')
-      //   reject();
-      // });
+      res.on('error', (error) => {
+        console.log('Error calling API')
+        reject();
+      });
     });
-    
-  //});
-};
+  });
+}
