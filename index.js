@@ -297,7 +297,7 @@ function getStateOfLight () {
 }
 
 function isLightBroken () {
-    return new Promise((resolve, reject) => {
+    //return new Promise((resolve, reject) => {
     // Create the path for the HTTP request to get the weather
     //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
     // Make the HTTP request
@@ -313,13 +313,14 @@ function isLightBroken () {
         let output = temp;
 
         // Resolve the promise with the output text
-        console.log(output);
-        resolve(output);
+        //console.log(output);
+        //resolve(output);
       });
-      res.on('error', (error) => {
-        console.log('Error calling API')
-        reject();
-      });
+      return output;
+      // res.on('error', (error) => {
+      //   console.log('Error calling API')
+      //   reject();
+      // });
     });
-  });
-}
+  //});
+};
