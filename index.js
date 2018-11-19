@@ -64,6 +64,7 @@ restService.post("/webhook", function(req, res) {
 
 
   //-----------------------------Light Control------------------------------------//
+  broken = 0;
       isLightBroken().then((fromResolve) =>{     // Check the status of the broken channel
         broken = fromResolve;
       });
