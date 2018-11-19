@@ -64,19 +64,22 @@ restService.post("/webhook", function(req, res) {
 
 
   //-----------------------------Light Control------------------------------------//
-  broken = 0;
+  var hej;
       isLightBroken().then((fromResolve) =>{     // Check the status of the broken channel
         broken = fromResolve;
       });
   //Status of lights
   if (cmd == 'state' && unit == 'light') {
+          getStateOfLight().then((output) => {
+        hej = output }); // Return the state of the light
+         res.json({ 'fulfillmentText': 'broken= '+broken+' state= '+hej });
   	  
     //   isLightBroken().then((output) =>{			// Check the status of the broken channel
   		// 	broken = output;
   		// });
-      getStateOfLight().then((output) => {
-        res.json({ 'fulfillmentText': 'broken= '+broken+' state= '+output }); // Return the state of the light
-         });
+      // getStateOfLight().then((output) => {
+      //   res.json({ 'fulfillmentText': 'broken= '+broken+' state= '+output }); // Return the state of the light
+      //    });
       // getStateOfLight().then((output) => {
       //   if (output == 0 && broken == 0) {
       //     res.json({ 'fulfillmentText': 'The '+area+' light is turned off' }); // Return the state of the light
