@@ -311,6 +311,7 @@ function isLightBroken () {
         let temp = response.feeds[0].field1;
         // Create response
         output = temp;
+        return output;
 
         // Resolve the promise with the output text
         //console.log(output);
@@ -322,6 +323,6 @@ function isLightBroken () {
       //   reject();
       // });
     });
-    return output;
+    
   //});
 };
