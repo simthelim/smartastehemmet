@@ -19,6 +19,7 @@ var vol;
 var controlkey;
 var statekey;
 var brokenkey;
+var broken;
 
 
 restService.use(
@@ -63,38 +64,27 @@ restService.post("/webhook", function(req, res) {
 
 
   //-----------------------------Light Control------------------------------------//
-  var broken;
-var hej;
-      isLightBroken().then((fromResolve) =>{     // Check the status of the broken channel
-        broken = fromResolve;
-      });
-                getStateOfLight().then((output) => {
-        hej = output });
+
   //Status of lights
   if (cmd == 'state' && unit == 'light') {
-        //   getStateOfLight().then((output) => {
-        // hej = output }); // Return the state of the light
-         res.json({ 'fulfillmentText': 'broken= '+broken+' state= '+hej });
-  	  
-    //   isLightBroken().then((output) =>{			// Check the status of the broken channel
-  		// 	broken = output;
+  	 //  isLightBroken().then((broken) =>{			// Check the status of the broken channel
+  		// 	broken = fromResolve;
   		// });
-      // getStateOfLight().then((output) => {
-      //   res.json({ 'fulfillmentText': 'broken= '+broken+' state= '+output }); // Return the state of the light
-      //    });
-      // getStateOfLight().then((output) => {
-      //   if (output == 0 && broken == 0) {
-      //     res.json({ 'fulfillmentText': 'The '+area+' light is turned off' }); // Return the state of the light
-      //   }
-      //   else if (output == 1 && broken == 1) {
-      //     res.json({ 'fulfillmentText': 'The '+area+' light is turned on' }); // Return the state of the light
-      //   }
-      //   else {
-      //   	res.json({ 'fulfillmentText': 'The '+area+' light seems to be broken' });
-      //   };
-      // }).catch(() => {
-      //   res.json({ 'fulfillmentText': 'something is wrong' });
-      // });
+      getStateOfLight().then((output) => {
+        isLightBroken().then((broken) =>{
+        if (output == 0 && broken == 0) {
+          res.json({ 'fulfillmentText': 'The '+area+' light is turned off' }); // Return the state of the light
+        }
+        else if (output == 1 && broken == 1) {
+          res.json({ 'fulfillmentText': 'The '+area+' light is turned on' }); // Return the state of the light
+        }
+        else {
+        	res.json({ 'fulfillmentText': 'The '+area+' light seems to be broken' });
+        };
+      }).catch(() => {
+        res.json({ 'fulfillmentText': 'something is wrong' });
+      });
+    });
   }; 
 
   //Switch on/off lights
