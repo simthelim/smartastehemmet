@@ -301,7 +301,7 @@ function isLightBroken () {
     // Create the path for the HTTP request to get the weather
     //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
     // Make the HTTP request
-  let output
+  var output
     https.get('https://api.thingspeak.com/channels/'+brokenkey+'/feeds.json?results=1', (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
