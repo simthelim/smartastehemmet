@@ -90,12 +90,9 @@ restService.post("/webhook", function(req, res) {
   //Switch on/off lights
   if (cmd == 'turn' && unit == 'light') {
 
-  	isLightBroken().then((output) =>{			// Check the status of the broken channel
-  			broken = output;
-  	});
-
     if (state == 'on') {
       getStateOfLight().then((output) => {                             //Checks the output of getStateOfLight to see if it is already on
+        isLightBroken().then((broken) =>{
         if (output == 1 && broken == 1) {
          res.json({ 'fulfillmentText': 'The '+area+' lights are already on' }); // If the lights are already on
         }
@@ -110,10 +107,12 @@ restService.post("/webhook", function(req, res) {
             res.json({ 'fulfillmentText': output });
           });
         };
+        });
       });
     };
     if (state == 'off') {
       getStateOfLight().then((output) => {                              //Checks the output of getStateOfLight to see if it is already off
+        isLightBroken().then((broken) =>{
         if (output == 0 && broken == 0) {
          res.json({ 'fulfillmentText': 'The '+area+' lights are already off' }); // If the lights are already off
         }
@@ -128,6 +127,7 @@ restService.post("/webhook", function(req, res) {
             res.json({ 'fulfillmentText': output });
           });
         };
+      });
       });
     };
 
