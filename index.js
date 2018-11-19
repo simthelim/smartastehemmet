@@ -67,29 +67,32 @@ restService.post("/webhook", function(req, res) {
 
   //Status of lights
   if (cmd == 'state' && unit == 'light') {
-  	  isLightBroken().then((temp) =>{			// Check the status of the broken channel
-  			broken = temp;
+  	  isLightBroken().then((output) =>{			// Check the status of the broken channel
+  			broken = output;
   		});
       getStateOfLight().then((output) => {
-        if (output == 1 && broken == 1) {
-          res.json({ 'fulfillmentText': 'The '+area+' light is turned on' }); // Return the state of the light
-        }
-        else if (output == 0 && broken == 0) {
-          res.json({ 'fulfillmentText': 'The '+area+' light is turned off' }); // Return the state of the light
-        }
-        else {
-        	res.json({ 'fulfillmentText': 'The '+area+' light seems to be broken' });
-        };
-      }).catch(() => {
-        res.json({ 'fulfillmentText': 'something is wrong' });
-      });
+        res.json({ 'fulfillmentText': 'The '+area+' light is turned off' }); // Return the state of the light
+         });
+      // getStateOfLight().then((output) => {
+      //   if (output == 0 && broken == 0) {
+      //     res.json({ 'fulfillmentText': 'The '+area+' light is turned off' }); // Return the state of the light
+      //   }
+      //   else if (output == 1 && broken == 1) {
+      //     res.json({ 'fulfillmentText': 'The '+area+' light is turned on' }); // Return the state of the light
+      //   }
+      //   else {
+      //   	res.json({ 'fulfillmentText': 'The '+area+' light seems to be broken' });
+      //   };
+      // }).catch(() => {
+      //   res.json({ 'fulfillmentText': 'something is wrong' });
+      // });
   }; 
 
   //Switch on/off lights
   if (cmd == 'turn' && unit == 'light') {
 
-  	isLightBroken().then((temp) =>{			// Check the status of the broken channel
-  			broken = temp;
+  	isLightBroken().then((output) =>{			// Check the status of the broken channel
+  			broken = output;
   	});
 
     if (state == 'on') {
@@ -306,11 +309,11 @@ function isLightBroken () {
         let response = JSON.parse(body);
         let temp = response.feeds[0].field1;
         // Create response
-        //let output = temp;
+        let output = temp;
 
         // Resolve the promise with the output text
-        console.log(temp);
-        resolve(temp);
+        console.log(output);
+        resolve(output);
       });
       res.on('error', (error) => {
         console.log('Error calling API')
