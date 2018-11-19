@@ -19,8 +19,7 @@ var vol;
 var controlkey;
 var statekey;
 var brokenkey;
-var broken;
-var hej;
+
 
 restService.use(
   bodyParser.urlencoded({
@@ -64,7 +63,8 @@ restService.post("/webhook", function(req, res) {
 
 
   //-----------------------------Light Control------------------------------------//
-  
+  var broken;
+var hej;
       isLightBroken().then((fromResolve) =>{     // Check the status of the broken channel
         broken = fromResolve;
       });
