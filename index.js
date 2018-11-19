@@ -20,7 +20,7 @@ var controlkey;
 var statekey;
 var brokenkey;
 var broken;
-
+var hej;
 
 restService.use(
   bodyParser.urlencoded({
@@ -64,14 +64,16 @@ restService.post("/webhook", function(req, res) {
 
 
   //-----------------------------Light Control------------------------------------//
-  var hej;
+  
       isLightBroken().then((fromResolve) =>{     // Check the status of the broken channel
         broken = fromResolve;
       });
+                getStateOfLight().then((output) => {
+        hej = output });
   //Status of lights
   if (cmd == 'state' && unit == 'light') {
-          getStateOfLight().then((output) => {
-        hej = output }); // Return the state of the light
+        //   getStateOfLight().then((output) => {
+        // hej = output }); // Return the state of the light
          res.json({ 'fulfillmentText': 'broken= '+broken+' state= '+hej });
   	  
     //   isLightBroken().then((output) =>{			// Check the status of the broken channel
