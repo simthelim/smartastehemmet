@@ -249,7 +249,7 @@ function turnLightON () {
         if (body == '0') {
           output = 'The light did not turn on, please try again in a moment.';
         } else {
-          output = 'The '+area+' light is now turned on';
+          output = 'Turning on the '+area+' light.';
         };
 
         // Resolve the promise with the output text
@@ -280,7 +280,7 @@ function turnLightOFF () {
         if (body == '0') {
           output = 'The light did not turn off, please try again in a moment.';
         } else {
-          output = 'The '+area+' light is now turned off';
+          output = 'Turning off the  '+area+'light.';
         };
         //let last = response['field1'];
         // Create response
