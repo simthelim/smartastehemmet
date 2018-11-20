@@ -61,7 +61,12 @@ restService.post("/webhook", function(req, res) {
   };
 
 
-
+//-------------------------------Temperature--------------------------------------//
+if(cmd == 'temperature') {
+	getTemperature().then((temp) => {
+		res.json({ 'fulfillmentText': 'The temperature is ' +temp+ 'degree Celsius'})
+	})
+};
 
   //-----------------------------Light Control------------------------------------//
 
@@ -142,6 +147,33 @@ restService.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");
 });
 
+function getTemperature () {
+    return new Promise((resolve, reject) => {
+    // Create the path for the HTTP request to get the weather
+    //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
+    // Make the HTTP request
+  
+    https.get('https://api.thingspeak.com/channels/624654/feeds.json?results=1', (res) => {
+      let body = ''; // var to store the response chunks
+      res.on('data', (d) => { body += d; }); // store each response chunk
+      res.on('end', () => {
+        // After all the data has been received parse the JSON for desired data
+        let response = JSON.parse(body);
+        let temp = response.feeds[0].field1;
+        // Create response
+        let output = temp;
+
+        // Resolve the promise with the output text
+        console.log(output);
+        resolve(output);
+      });
+      res.on('error', (error) => {
+        console.log('Error calling API')
+        reject();
+      });
+    });
+  });
+}
 
 function setSpeakerVolume () {
     return new Promise((resolve, reject) => {
