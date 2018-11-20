@@ -40,15 +40,15 @@ restService.post("/webhook", function(req, res) {
   
   //Get the API-key that relates to the correct unit
   if (area == 'living room') {
-    controlkey = '8GC28PFNII0B3951';
-    statekey = '619204';
-    brokenkey = '625545';
+    controlkey = 'VCR3Z71LGJYQ9MSO';
+    statekey = '625581';
+    brokenkey = '625582';
   };
 
   if (area == 'kitchen') {
-    controlkey = 'NKLUZK54FJP8Q5QP';
-    statekey = '622701';
-    brokenkey = '625546';
+    controlkey = 'UX4N4SFX7F408R3Y';
+    statekey = '625583';
+    brokenkey = '625584';
   };
   
 //------------------------------Speaker volume control----------------------------//
@@ -64,7 +64,7 @@ restService.post("/webhook", function(req, res) {
 //-------------------------------Temperature--------------------------------------//
 if(cmd == 'temperature') {
 	getTemperature().then((temp) => {
-		res.json({ 'fulfillmentText': 'The temperature is ' +temp+ 'degree Celsius'})
+		res.json({ 'fulfillmentText': 'The temperature is ' +temp+ ' degree Celsius'})
 	})
 };
 
@@ -153,7 +153,7 @@ function getTemperature () {
     //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
     // Make the HTTP request
   
-    https.get('https://api.thingspeak.com/channels/624654/feeds.json?results=1', (res) => {
+    https.get('https://api.thingspeak.com/channels/625586/fields/field1/last.json', (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
