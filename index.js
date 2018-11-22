@@ -46,9 +46,9 @@ restService.post("/webhook", function(req, res) {
   };
 
   if (area == 'kitchen') {
-    controlkey = 'UX4N4SFX7F408R3Y';
-    statekey = '625583';
-    brokenkey = '625584';
+    controlkey = 'NKLUZK54FJP8Q5QP';
+    statekey = '622701';
+    brokenkey = '625546';
   };
   
 //------------------------------Speaker volume control----------------------------//
@@ -72,9 +72,6 @@ if(cmd == 'temperature') {
 
   //Status of lights
   if (cmd == 'state' && unit == 'light') {
-  	 //  isLightBroken().then((broken) =>{			// Check the status of the broken channel
-  		// 	broken = fromResolve;
-  		// });
       getStateOfLight().then((output) => {
         isLightBroken().then((broken) =>{
         if (output == 0 && broken == 0) {
@@ -149,20 +146,16 @@ restService.listen(process.env.PORT || 8000, function() {
 
 function getTemperature () {
     return new Promise((resolve, reject) => {
-    // Create the path for the HTTP request to get the weather
-    //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
-    // Make the HTTP request
-  
+    // Make the HTTP request  
     https.get('https://api.thingspeak.com/channels/625586/feeds.json?results=1', (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
         // After all the data has been received parse the JSON for desired data
-        let response = JSON.parse(body);
-        let temp = response.feeds[0].field1;
         // Create response
-        let output = temp;
-
+        let response = JSON.parse(body);
+        let output = response.feeds[0].field1;
+        //let output = temp;
         // Resolve the promise with the output text
         console.log(output);
         resolve(output);
@@ -177,20 +170,14 @@ function getTemperature () {
 
 function setSpeakerVolume () {
     return new Promise((resolve, reject) => {
-    // Create the path for the HTTP request to get the weather
-    //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
-    // Make the HTTP request
-  
+    // Make the HTTP request  
     https.get('https://api.thingspeak.com/update?api_key=8YUPDMQJS9LFKDM2&field1='+volume, (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
         // After all the data has been received parse the JSON for desired data
-        //let response = JSON.parse(body);
-        //let last = response['field1'];
         // Create response
         let output = 'The speaker is now at '+vol+' percent.';
-
         // Resolve the promise with the output text
         console.log(output);
         resolve(output);
@@ -205,20 +192,15 @@ function setSpeakerVolume () {
 
 function getSpeakerVolume () {
     return new Promise((resolve, reject) => {
-    // Create the path for the HTTP request to get the weather
-    //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
-    // Make the HTTP request
-  
+    // Make the HTTP request  
     https.get('https://api.thingspeak.com/channels/624654/feeds.json?results=2', (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
         // After all the data has been received parse the JSON for desired data
-        let response = JSON.parse(body);
-        let temp = response.feeds[0].field1;
         // Create response
-        let output = temp;
-
+        let response = JSON.parse(body);
+        let output = response.feeds[0].field1;        
         // Resolve the promise with the output text
         console.log(output);
         resolve(output);
@@ -233,17 +215,11 @@ function getSpeakerVolume () {
 
 function turnLightON () {
     return new Promise((resolve, reject) => {
-    // Create the path for the HTTP request to get the weather
-    //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
-    // Make the HTTP request
-  
+    // Make the HTTP request  
     https.get('https://api.thingspeak.com/update?api_key='+controlkey+'&field1=1', (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
-        // After all the data has been received parse the JSON for desired data
-        //let response = JSON.parse(body);
-        //let last = response['field1'];
         // Create response
         let output;
         if (body == '0') {
@@ -251,7 +227,6 @@ function turnLightON () {
         } else {
           output = 'Turning on the '+area+' light.';
         };
-
         // Resolve the promise with the output text
         console.log(output);
         resolve(output);
@@ -266,26 +241,19 @@ function turnLightON () {
 
 function turnLightOFF () {
     return new Promise((resolve, reject) => {
-    // Create the path for the HTTP request to get the weather
-    //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=0';
-    // Make the HTTP request
-  
+    // Make the HTTP request  
     https.get('https://api.thingspeak.com/update?api_key='+controlkey+'&field1=0', (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
         // After all the data has been received parse the JSON for desired data
-        //let response = JSON.parse(body);
         let output;
         if (body == '0') {
           output = 'The light did not turn off, please try again in a moment.';
         } else {
           output = 'Turning off the  '+area+'light.';
         };
-        //let last = response['field1'];
         // Create response
-        //let output = 'The '+area+' light is now turned off';
-
         // Resolve the promise with the output text
         console.log(output);
         resolve(output);
@@ -300,20 +268,16 @@ function turnLightOFF () {
 
 function getStateOfLight () {
     return new Promise((resolve, reject) => {
-    // Create the path for the HTTP request to get the weather
-    //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
-    // Make the HTTP request
-  
+    // Make the HTTP request  
     https.get('https://api.thingspeak.com/channels/'+statekey+'/feeds.json?results=1', (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
         // After all the data has been received parse the JSON for desired data
         let response = JSON.parse(body);
-        let temp = response.feeds[0].field1;
         // Create response
+        let output = response.feeds[0].field1;
         let output = temp;
-
         // Resolve the promise with the output text
         console.log(output);
         resolve(output);
@@ -328,20 +292,15 @@ function getStateOfLight () {
 
 function isLightBroken () {
     return new Promise((resolve, reject) => {
-    // Create the path for the HTTP request to get the weather
-    //let path = '/update?api_key=116UAXMQP1O8EYZ3&field1=1';
-    // Make the HTTP request
-  
+    // Make the HTTP request  
     https.get('https://api.thingspeak.com/channels/'+brokenkey+'/feeds.json?results=1', (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
         // After all the data has been received parse the JSON for desired data
-        let response = JSON.parse(body);
-        let temp = response.feeds[0].field1;
         // Create response
-        let output = temp;
-
+        let response = JSON.parse(body);
+        let output = response.feeds[0].field1;        
         // Resolve the promise with the output text
         console.log(output);
         resolve(output);
