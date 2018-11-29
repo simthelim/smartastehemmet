@@ -68,20 +68,21 @@ if (unit == 'fan') {
  	if (regulate == 'increase'){
  		getFanSpeed().then((outupt) => {
  			speed += output;
- 			if (speed > 100) {
- 				speed = 100;
- 			};
- 			setFanSpeed().then((fanSpeed) => {
-      	res.json({ 'fulfillmentText': fanSpeed });
-    	});
+ 			res.json({ 'fulfillmentText': output });
+ 			// if (speed > 100) {
+ 			// 	speed = 100;
+ 			// };
+ 			// setFanSpeed().then((fanSpeed) => {
+    //   	res.json({ 'fulfillmentText': fanSpeed });
+    // 	});
 
  		});
  	};
 
 
- 	if (regulate == 'decrease'){
+ 	// if (regulate == 'decrease'){
 
- 	};
+ 	// };
 
 };
 //-------------------------------Temperature--------------------------------------//
