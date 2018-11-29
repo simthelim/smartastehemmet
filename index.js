@@ -59,7 +59,6 @@ if (unit == 'fan') {
   	speed = percentage.replace( "%", ''); // Take away the %-sign from 'percentage'
 	//Set fan speed
   if (cmd == 'set') {
-  	speed = percentage.replace( "%", ''); // Take away the %-sign from 'percentage'
     setFanSpeed().then((output) => {
       res.json({ 'fulfillmentText': output });
     });
