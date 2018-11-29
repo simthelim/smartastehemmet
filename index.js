@@ -69,7 +69,7 @@ if (unit == 'fan') {
 
 	if (cmd == 'state') {
 		getFanSpeed().then((output) => {
-      spd += output;
+      spd += Number(output);
       text = String(spd);
 			res.json({ 'fulfillmentText': text });
 		});
