@@ -57,7 +57,22 @@ restService.post("/webhook", function(req, res) {
   };
   
 //------------------------------Fan control----------------------------//
-if (unit == 'fan') {	
+if (unit == 'fan') {
+  if (cmd == 'turn') {
+    if (state == 'on'){
+      getFanSpeed().then((output) => {
+        if (output == 0) {
+          speed = '30';
+          setFanSpeed().then((fanSpeed) => {
+            res.json({ 'fulfillmentText': 'Turning on the fan at 30 percent of maximum speed.'});
+        });
+        }
+        else {
+          res.json({'fulfillmentText': 'The fan is already on and running at'+output+'percent of maximum speed.'})
+        };
+      });
+    };
+  };	
   	speed = percentage.replace( "%", ''); // Take away the %-sign from 'percentage'
     spd = Number(speed);
 	//Set fan speed
@@ -74,7 +89,7 @@ if (unit == 'fan') {
 			res.json({ 'fulfillmentText': text });
 		});
 	};  
- 	//Increase/Decrease fan speed
+ 	//Increase
  	if (regulate == 'increase'){
  		getFanSpeed().then((output) => {
  			spd += Number(output);
@@ -82,7 +97,7 @@ if (unit == 'fan') {
  				spd = 100;
         speed = String(spd);
         setFanSpeed().then((fanSpeed) => {
-          res.json({ 'fulfillmentText': 'The fan is now at maximum speed'});
+          res.json({ 'fulfillmentText': 'Setting the fan to maximum speed.'});
         });
  			} 
       else {
@@ -94,7 +109,7 @@ if (unit == 'fan') {
     });
  	};
 
-
+  //Decrease fan speed
  	if (regulate == 'decrease'){
     getFanSpeed().then((output) => {
       spd = Number(output) - spd;
@@ -102,7 +117,7 @@ if (unit == 'fan') {
         spd = 0;
         speed = String(spd);
         setFanSpeed().then((fanSpeed) => {
-          res.json({ 'fulfillmentText': 'The fan is now turned off'});
+          res.json({ 'fulfillmentText': 'Turning off the fan.'});
         });
       } 
       else {
@@ -231,7 +246,7 @@ function setFanSpeed () {
       res.on('end', () => {
         // After all the data has been received parse the JSON for desired data
         // Create response
-        let output = 'The fan is now at '+speed+' percent of maximum speed.';
+        let output = 'Setting the speed of fan to '+speed+' percent of maximum speed.';
         // Resolve the promise with the output text
         console.log(output);
         resolve(output);
