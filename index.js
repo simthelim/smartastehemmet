@@ -58,16 +58,19 @@ restService.post("/webhook", function(req, res) {
   
 //------------------------------Fan control----------------------------//
 if (unit == 'fan') {	
-  	speed = percentage.replace( "%", ''); // Take away the %-sign from 'percentage'
-    spd = Number(speed);
+  	
+    
 	//Set fan speed
   if (cmd == 'set') {
+    speed = percentage.replace( "%", ''); // Take away the %-sign from 'percentage'
     setFanSpeed().then((output) => {
       res.json({ 'fulfillmentText': output });
     });
   };
 
 	if (cmd == 'state') {
+    speed = percentage.replace( "%", ''); // Take away the %-sign from 'percentage'
+    spd = Number(speed);
 		getFanSpeed().then((output) => {
       spd += Number(output);
       text = String(spd);
@@ -76,13 +79,15 @@ if (unit == 'fan') {
 	};  
  	//Increase/Decrease fan speed
  	if (regulate == 'increase'){
+    speed = percentage.replace( "%", ''); // Take away the %-sign from 'percentage'
+    spd = Number(speed);
  		getFanSpeed().then((outupt) => {
  			spd += Number(output);
  			if (spd > 100) {
  				spd = 100;
         speed = String(spd);
-        setFanSpeed().then((speed) => {
-          res.json({ 'fulfillmentText': speed });
+        setFanSpeed().then((fanSpeed) => {
+          res.json({ 'fulfillmentText': fanSpeed });
         });
  			} 
       else {
