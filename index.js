@@ -78,7 +78,7 @@ if (unit == 'fan') {
           res.json({ 'fulfillmentText': 'The fan is already off.'});
         }
         else {
-          speed = 0'';
+          speed = '0';
           setFanSpeed().then((fanSpeed) => {
           res.json({ 'fulfillmentText': 'Turning off the fan.'});
           });
