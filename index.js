@@ -14,6 +14,7 @@ var cmd;
 var area;
 var percentage;
 var regulate;
+var speed;
 
 var volume;
 var vol;
@@ -55,9 +56,9 @@ restService.post("/webhook", function(req, res) {
   
 //------------------------------Fan control----------------------------//
 if (unit == 'fan') {
-  //Set fan speed
+	      //Set fan speed
   if (cmd == 'set') {
-    speed = percentage.replace( /^\D+/g, ''); // Take away the %-sign from 'percentage'
+  	speed = percentage.replace( /^\D+/g, ''); // Take away the %-sign from 'percentage'
     setFanSpeed().then((output) => {
       res.json({ 'fulfillmentText': output });
     });
@@ -65,9 +66,8 @@ if (unit == 'fan') {
 
  	//Increase/Decrease fan speed
  	if (regulate == 'increase'){
- 		spd = percentage.replace( /^\D+/g, ''); // Take away the %-sign from 'percentage'
  		getFanSpeed().then((outupt) => {
- 			speed = spd + output;
+ 			speed += output;
  			if (speed > 100) {
  				speed = 100;
  			};
