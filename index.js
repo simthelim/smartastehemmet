@@ -64,25 +64,29 @@ if (unit == 'fan') {
     });
   };
 
+	if (cmd == 'state') {
+		getFanSpeed().then((output) => {
+			res.json({ 'fulfillmentText': output });
+		});
+	};  
  	//Increase/Decrease fan speed
  	if (regulate == 'increase'){
  		getFanSpeed().then((outupt) => {
  			speed += output;
- 			res.json({ 'fulfillmentText': output });
- 			// if (speed > 100) {
- 			// 	speed = 100;
- 			// };
- 			// setFanSpeed().then((fanSpeed) => {
-    //   	res.json({ 'fulfillmentText': fanSpeed });
-    // 	});
+ 			if (speed > 100) {
+ 				speed = 100;
+ 			};
+ 			setFanSpeed().then((fanSpeed) => {
+      	res.json({ 'fulfillmentText': fanSpeed });
+    	});
 
  		});
  	};
 
 
- 	// if (regulate == 'decrease'){
+ 	if (regulate == 'decrease'){
 
- 	// };
+ 	};
 
 };
 //-------------------------------Temperature--------------------------------------//
