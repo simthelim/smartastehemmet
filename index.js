@@ -15,6 +15,7 @@ var area;
 var percentage;
 var regulate;
 var speed;
+var spd;
 
 var volume;
 var vol;
@@ -71,11 +72,13 @@ if (unit == 'fan') {
 	};  
  	//Increase/Decrease fan speed
  	if (regulate == 'increase'){
+    spd = number(speed);
  		getFanSpeed().then((outupt) => {
- 			speed += output;
- 			if (speed > 100) {
- 				speed = 100;
+ 			spd += output;
+ 			if (spd > 100) {
+ 				spd = 100;
  			};
+      speed = String(spd);
  			setFanSpeed().then((fanSpeed) => {
       	res.json({ 'fulfillmentText': fanSpeed });
     	});
