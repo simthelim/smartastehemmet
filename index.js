@@ -55,10 +55,11 @@ restService.post("/webhook", function(req, res) {
   };
   
 //------------------------------Fan control----------------------------//
-if (unit == 'fan') {
-	      //Set fan speed
+if (unit == 'fan') {	
+  	speed = percentage.replace( "%", ''); // Take away the %-sign from 'percentage'
+	//Set fan speed
   if (cmd == 'set') {
-  	speed = percentage.replace( /^\D+/g, ''); // Take away the %-sign from 'percentage'
+  	speed = percentage.replace( "%", ''); // Take away the %-sign from 'percentage'
     setFanSpeed().then((output) => {
       res.json({ 'fulfillmentText': output });
     });
