@@ -68,11 +68,24 @@ if (unit == 'fan') {
         });
         }
         else {
-          res.json({'fulfillmentText': 'The fan is already on and running at'+output+'percent of maximum speed.'})
+          res.json({'fulfillmentText': 'The fan is already on and running at '+output+' percent of maximum speed.'})
         };
       });
     };
-  };	
+    if(state == 'off') {
+      getFanSpeed().then((output) => {
+        if (output == 0) {
+          res.json({ 'fulfillmentText': 'The fan is already off.'});
+        }
+        else {
+          speed = 0'';
+          setFanSpeed().then((fanSpeed) => {
+          res.json({ 'fulfillmentText': 'Turning off the fan.'});
+          });
+        };
+      };
+    };
+
   	speed = percentage.replace( "%", ''); // Take away the %-sign from 'percentage'
     spd = Number(speed);
 	//Set fan speed
@@ -246,7 +259,7 @@ function setFanSpeed () {
       res.on('end', () => {
         // After all the data has been received parse the JSON for desired data
         // Create response
-        let output = 'Setting the speed of fan to '+speed+' percent of maximum speed.';
+        let output = 'Setting the fan to '+speed+' percent of maximum speed.';
         // Resolve the promise with the output text
         console.log(output);
         resolve(output);
