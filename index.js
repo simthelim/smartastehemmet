@@ -85,6 +85,7 @@ if (unit == 'fan') {
         };
       });
     };
+  };
 
   	speed = percentage.replace( "%", ''); // Take away the %-sign from 'percentage'
     spd = Number(speed);
