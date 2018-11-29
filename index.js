@@ -82,6 +82,8 @@ if (unit == 'fan') {
     speed = percentage.replace( "%", ''); // Take away the %-sign from 'percentage'
     spd = Number(speed);
  		getFanSpeed().then((outupt) => {
+      speed = percentage.replace( "%", ''); // Take away the %-sign from 'percentage'
+      spd = Number(speed);
  			spd += Number(output);
  			if (spd > 100) {
  				spd = 100;
