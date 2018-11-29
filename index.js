@@ -80,13 +80,18 @@ if (unit == 'fan') {
  			spd += Number(output);
  			if (spd > 100) {
  				spd = 100;
- 			};
-          });
-      speed = String(spd);
- 			setFanSpeed().then((fanSpeed) => {
-      	res.json({ 'fulfillmentText': fanSpeed });
-    	});
-
+        speed = String(spd);
+        setFanSpeed().then((fanSpeed) => {
+          res.json({ 'fulfillmentText': fanSpeed });
+        });
+ 			} 
+      else {
+        speed = String(spd);
+        setFanSpeed().then((fanSpeed) => {
+          res.json({ 'fulfillmentText': fanSpeed });
+        });
+      }
+    });
  	};
 
 
