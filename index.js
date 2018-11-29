@@ -14,6 +14,7 @@ var cmd;
 var area;
 var percentage;
 var regulate;
+var speed;
 
 var volume;
 var vol;
