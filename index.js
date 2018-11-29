@@ -76,7 +76,7 @@ if (unit == 'fan') {
 	};  
  	//Increase/Decrease fan speed
  	if (regulate == 'increase'){
- 		getFanSpeed().then((outupt) => {
+ 		getFanSpeed().then((output) => {
  			spd += Number(output);
  			if (spd > 100) {
  				spd = 100;
@@ -96,7 +96,7 @@ if (unit == 'fan') {
 
 
  	if (regulate == 'decrease'){
-    getFanSpeed().then((outupt) => {
+    getFanSpeed().then((output) => {
       spd -= Number(output);
       if (spd <= 0) {
         spd = 0;
