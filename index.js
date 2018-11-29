@@ -59,7 +59,6 @@ restService.post("/webhook", function(req, res) {
 //------------------------------Fan control----------------------------//
 if (unit == 'fan') {	
   	speed = percentage.replace( "%", ''); // Take away the %-sign from 'percentage'
-    spd = Number(speed);
 	//Set fan speed
   if (cmd == 'set') {
     setFanSpeed().then((output) => {
@@ -76,9 +75,9 @@ if (unit == 'fan') {
 	};  
  	//Increase/Decrease fan speed
  	if (regulate == 'increase'){
-    spd = Number(speed);
  		getFanSpeed().then((outupt) => {
- 			spd += output;
+      spd = Number(speed);
+ 			spd += Number(output);
  			if (spd > 100) {
  				spd = 100;
  			};
