@@ -76,13 +76,13 @@ if (unit == 'fan') {
 	};  
  	//Increase/Decrease fan speed
  	if (regulate == 'increase'){
- 		getFanSpeed().then((output) => {
+ 		getFanSpeed().then((outupt) => {
  			spd += Number(output);
  			if (spd > 100) {
  				spd = 100;
         speed = String(spd);
         setFanSpeed().then((fanSpeed) => {
-          res.json({ 'fulfillmentText': fanSpeed });
+          res.json({ 'fulfillmentText': 'The fan is now at maximum speed'});
         });
  			} 
       else {
@@ -96,7 +96,22 @@ if (unit == 'fan') {
 
 
  	if (regulate == 'decrease'){
-
+    getFanSpeed().then((outupt) => {
+      spd -= Number(output);
+      if (spd <= 0) {
+        spd = 0;
+        speed = String(spd);
+        setFanSpeed().then((fanSpeed) => {
+          res.json({ 'fulfillmentText': 'The fan is now turned off'});
+        });
+      } 
+      else {
+        speed = String(spd);
+        setFanSpeed().then((fanSpeed) => {
+          res.json({ 'fulfillmentText': fanSpeed });
+        });
+      }
+    });
  	};
 
 };
