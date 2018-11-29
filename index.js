@@ -97,7 +97,7 @@ if (unit == 'fan') {
 
  	if (regulate == 'decrease'){
     getFanSpeed().then((output) => {
-      spd -= Number(output);
+      spd = Number(output) - spd;
       if (spd <= 0) {
         spd = 0;
         speed = String(spd);
