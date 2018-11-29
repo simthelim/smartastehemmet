@@ -83,7 +83,7 @@ if (unit == 'fan') {
           res.json({ 'fulfillmentText': 'Turning off the fan.'});
           });
         };
-      };
+      });
     };
 
   	speed = percentage.replace( "%", ''); // Take away the %-sign from 'percentage'
