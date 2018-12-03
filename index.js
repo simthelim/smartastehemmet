@@ -51,9 +51,12 @@ restService.post("/webhook", function(req, res) {
   };
 
   if (area == 'kitchen') {
-    controlkey = 'NKLUZK54FJP8Q5QP';
-    statekey = '622701';
-    brokenkey = '625546';
+    //controlkey = 'NKLUZK54FJP8Q5QP';
+    controlkey = 'UX4N4SFX7F408R3Y';
+    statekey = 625583;
+    brokenkey = 625584;
+    // statekey = '622701';
+    // brokenkey = '625546';
   };
   
 //------------------------------Fan control----------------------------//
@@ -254,7 +257,7 @@ function getTemperature () {
 function setFanSpeed () {
     return new Promise((resolve, reject) => {
     // Make the HTTP request  
-    https.get('https://api.thingspeak.com/update?api_key=Y07OOBC33IPVFK5U&field1='+speed, (res) => {
+    https.get('https://api.thingspeak.com/update?api_key=8YUPDMQJS9LFKDM2&field1='+speed, (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
@@ -276,7 +279,7 @@ function setFanSpeed () {
 function getFanSpeed () {
     return new Promise((resolve, reject) => {
     // Make the HTTP request  
-    https.get('https://api.thingspeak.com/channels/637916/feeds.json?results=1', (res) => {
+    https.get('https://api.thingspeak.com/channels/624654/feeds.json?results=1', (res) => {
       let body = ''; // var to store the response chunks
       res.on('data', (d) => { body += d; }); // store each response chunk
       res.on('end', () => {
