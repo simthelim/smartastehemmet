@@ -53,8 +53,8 @@ restService.post("/webhook", function(req, res) {
   if (area == 'kitchen') {
     //controlkey = 'NKLUZK54FJP8Q5QP';
     controlkey = 'UX4N4SFX7F408R3Y';
-    statekey = 625583;
-    brokenkey = 625584;
+    statekey = '625583';
+    brokenkey = '625584';
     // statekey = '622701';
     // brokenkey = '625546';
   };
