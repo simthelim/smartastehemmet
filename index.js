@@ -94,9 +94,18 @@ if (unit == 'fan') {
     spd = Number(speed);
 	//Set fan speed
   if (cmd == 'set') {
-    setFanSpeed().then((output) => {
-      res.json({ 'fulfillmentText': output });
-    });
+    if (spd >= 100) {
+      spd = 100;
+      speed = String(spd);
+      setFanSpeed().then((fanSpeed) => {
+        res.json({ 'fulfillmentText': 'Setting the fan to maximum speed.'});
+      });
+    } 
+    else {
+      setFanSpeed().then((output) => {
+        res.json({ 'fulfillmentText': output });
+      });
+    };
   };
 
 	if (cmd == 'state') {
