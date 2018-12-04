@@ -103,21 +103,21 @@ if (unit == 'fan') {
 		getFanSpeed().then((output) => {
       spd += Number(output);
       text = String(spd);
-			res.json({ 'fulfillmentText': text });
+			res.json({ 'fulfillmentText': 'The fan is at ' + text + ' percent of maximum speed.'});
 		});
 	};  
  	//Increase
  	if (regulate == 'increase'){
  		getFanSpeed().then((output) => {
  			spd += Number(output);
- 			if (spd > 100) {
+ 			if (spd >= 100) {
  				spd = 100;
         speed = String(spd);
         setFanSpeed().then((fanSpeed) => {
           res.json({ 'fulfillmentText': 'Setting the fan to maximum speed.'});
         });
  			} 
-      else {
+      else if (spd < 100){
         speed = String(spd);
         setFanSpeed().then((fanSpeed) => {
           res.json({ 'fulfillmentText': fanSpeed });
